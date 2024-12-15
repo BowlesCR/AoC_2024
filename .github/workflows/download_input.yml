@@ -21,6 +21,12 @@ jobs:
       DAY: ${{ inputs.day }}
       YEAR: 2024
     steps:
+      - name: Fail-fast if $SESSION_COOKIE undefined
+        if: ${{ secrets.SESSION_COOKIE == ''}}
+        with:
+          script: |
+            core.setFailed('`secrets.SESSION_COOKIE` not set')
+
       - name: Checkout
         uses: actions/checkout@v4
 
