@@ -5,7 +5,7 @@ on:
       day:
         required: false
         type: string
-        description: 'Include leading zero'
+        description: 'Day - Include leading zero'
 
   schedule:
    - cron: "0 5 * 12 *"  # Might need to delay this a minute, but GHA startup time is likely longer than any time skew.
@@ -22,7 +22,9 @@ jobs:
       YEAR: 2024
     steps:
       - name: Fail-fast if $SESSION_COOKIE undefined
-        if: ${{ secrets.SESSION_COOKIE == ''}}
+        env:
+          SESSION_COOKIE: ${{ secrets.SESSION_COOKIE }}
+        if: ${{ env.SESSION_COOKIE == ''}}
         run: |
           echo "::error SESSION_COOKIE secret not set"
           exit 1
