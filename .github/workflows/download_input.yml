@@ -37,7 +37,8 @@ jobs:
         run: echo "DAY=$(date +'%d')" >> $GITHUB_ENV
 
       - name: Make dir if not exist
-        run: mkdir "Day_${DAY}"
+        # -p to suppress errors when it exists
+        run: mkdir -p "Day_${DAY}"
 
       - name: Get file
         env:
