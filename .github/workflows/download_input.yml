@@ -23,9 +23,9 @@ jobs:
     steps:
       - name: Fail-fast if $SESSION_COOKIE undefined
         if: ${{ secrets.SESSION_COOKIE == ''}}
-        with:
-          script: |
-            core.setFailed('`secrets.SESSION_COOKIE` not set')
+        run: |
+          echo "::error SESSION_COOKIE secret not set"
+          exit 1
 
       - name: Checkout
         uses: actions/checkout@v4
